@@ -8,44 +8,21 @@ export function buildHtml({
   headerInstructions,
   numQuestions,
   questionsPerRow,
-  classNames = [],
-  logoLeftUrl,
-  logoRightUrl,
-  schoolName,
-  discipline,
-  professorName,
-  date,
-  student,
+  classIds = [],
 }: {
   headerTitle: string;
   headerInstructions: string;
   numQuestions: number;
   questionsPerRow: number;
-  classNames?: string[];
-  logoLeftUrl?: string;
-  logoRightUrl?: string;
-  schoolName?: string;
-  discipline?: string;
-  professorName?: string;
-  date?: string;
-  student?: {
-    id: string;
-    name: string;
-    photoUrl: string;
-    className: string;
-    callNumber: number;
-  };
+  classIds?: string[];
 }) {
-  const studentClass = student?.className;
-  const callNum = student?.callNumber ?? null;
-  const callTens = callNum !== null ? Math.floor(callNum / 10) : null;
-  const callUnits = callNum !== null ? callNum % 10 : null;
   // Build Turma rows
-  const classOptionsHtml = (classNames || [])
-    .map(name => `
+  const classOptionsHtml = classIds
+    .map((id, idx) => `
       <div class="row">
-        <span class="bubble"${name === studentClass ? ' style="background-color:black"' : ""}></span>
-        <span class="label">${name}</span>
+        <span class="q">${idx + 1}</span>
+        <span class="bubble"></span>
+        <span class="label">${id}</span>
       </div>`)
     .join("");
 
@@ -101,56 +78,25 @@ export function buildHtml({
       border: 1px solid #000;
       border-radius: 50%;
     }
-    .label { /* margin-left: 4mm; */ }
-    .header-container { display: flex; align-items: center; justify-content: space-between; }
-    .logo { max-height: 20mm; }
-    .header-info { text-align: center; flex: 1; }
-    .header-info .school,
-    .header-info .discipline,
-    .header-info .professor,
-    .header-info .date { margin: 0; font-size: 10px; }
-    .class-call-container { display: flex; justify-content: space-between; gap: 10mm; }
-    .turmas-section, .call-section { flex: 1; }
+    .label { margin-left: 4mm; }
   </style>
 </head>
 <body>
-  <div class="box header-container">
-    <img src="${logoLeftUrl || ''}" class="logo" alt="Left Logo"/>
-    <div class="header-info">
-      <div class="school">${schoolName || ''}</div>
-      <div class="discipline">${discipline || ''}</div>
-      <div class="professor">${professorName || ''}</div>
-      <div class="date">${date || ''}</div>
-      <h1>${headerTitle}</h1>
-    </div>
-    <img src="${logoRightUrl || ''}" class="logo" alt="Right Logo"/>
-  </div>
-  <div class="box student-info">
-    <img src="${student?.photoUrl || ''}" class="student-photo" alt="Foto do aluno"/>
-    <div><strong>Aluno:</strong> ${student?.name || '________________'}</div>
-    <div><strong>Turma:</strong> ${student?.className || '____'}</div>
-    <div><strong>Chamada:</strong> ${student?.callNumber ?? '____'}</div>
-  </div>
-  <div class="box">
-    <strong>NOTA:</strong> _____________________________________________
-  </div>
+  <div class="box"><h1>${headerTitle}</h1></div>
+  <div class="box">Nome do Aluno: _______________________________________________</div>
   <div class="box">${headerInstructions.replace(/\n/g, "<br/>")}</div>
 
-  <div class="box class-call-container">
-    <div class="turmas-section">
-      <strong>Turmas:</strong>
-      <div class="turmas">${classOptionsHtml}</div>
-    </div>
-    <div class="call-section">
-      <strong>Número da chamada:</strong>
-      <div class="id-grid">
-        ${Array.from({length:10}, (_, d) => `
-          <div class="row">
-            <span class="q">${d}</span>
-            <span class="bubble"${d === callTens ? ' style="background-color:black"' : ""}></span>
-            <span class="bubble"${d === callUnits ? ' style="background-color:black"' : ""}></span>
-          </div>`).join("")}
-      </div>
+  <div class="box">
+    <strong>Turmas:</strong>
+    <div class="turmas">${classOptionsHtml}</div>
+    <br/>
+    <strong>Número da chamada:</strong>
+    <div class="id-grid">
+      ${Array.from({length:10}, (_, d) => `
+        <div class="row">
+          <span class="q">${d}</span><span class="bubble"></span>
+          <span class="bubble"></span>
+        </div>`).join("")}
     </div>
   </div>
 
