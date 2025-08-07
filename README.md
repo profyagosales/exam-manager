@@ -43,3 +43,26 @@
    git add .
    git commit -m "feat: CRUD turmas/alunos funcionando"
    git push
+---
+
+## 5. Próximos Passos Imediatos
+
+1. **Listagem de Gabaritos**  
+   - Exibir link de download do PDF em `/answer-keys/page.tsx`.  
+   - Mostrar nomes das turmas (ao invés de IDs UUID).
+
+2. **Editor de Gabaritos Dinâmico**  
+   - Adicionar campos no `AddAnswerKeyDialog.tsx`: título da prova, instruções, seleção múltipla de turmas, total de questões, valor por questão.  
+   - Gerar preview ao vivo do gabarito antes de salvar.
+
+3. **Aprimorar Geração de PDF**  
+   - Refatorar `buildHtml.ts` e `route.ts` para melhorar layout do PDF: cabeçalhos estilizados, campos de "Nome do Aluno", "Turma" (marcações de ID dezena/unidade), instruções de prova e marcações em bolinha estilizadas.  
+   - Ajustar estilos CSS para responsividade e espaçamento adequado das bolinhas.
+
+4. **Fluxo de Correção Automática**  
+   - Criar tabela `student_answers` para respostas lidas.  
+   - Desenvolver interface de correção: upload das páginas preenchidas, leitura automática (Tesseract ou sheet-bubble), comparação com o gabarito de referência.  
+   - Calcular nota (acertos x pontos por questão) e exibir relatório de acertos, erros e nota final.
+
+5. **Documentação Atualizada**  
+   - Este README deve ser atualizado com este resumo de próximos passos, instruções de configuração e guia de uso das novas funcionalidades.
