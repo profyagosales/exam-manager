@@ -18,14 +18,7 @@ const supabase = createClient(
  *   headerTitle: string,
  *   headerInstructions: string,
  *   pointsPerQuestion: number,
- *   classIds: string[],
- *   classNames: string[],
- *   schoolName: string,
- *   discipline: string,
- *   professorName: string,
- *   logoLeftUrl: string,
- *   logoRightUrl: string,
- *   date: string
+ *   classIds: string[]
  * }
  */
 export async function POST(req: NextRequest) {
@@ -37,13 +30,6 @@ export async function POST(req: NextRequest) {
     headerInstructions = "Preencha apenas uma alternativa por questão.",
     pointsPerQuestion = 1,
     classIds = [],
-    classNames = [],
-    schoolName = "",
-    discipline = "",
-    professorName = "",
-    logoLeftUrl = "",
-    logoRightUrl = "",
-    date = "",
   } = await req.json();
 
   /* ========== 1. Gerar HTML e converter em PDF ========== */
@@ -53,13 +39,7 @@ export async function POST(req: NextRequest) {
     numQuestions,
     questionsPerRow,
     pointsPerQuestion,
-    classNames,
-    schoolName,
-    discipline,
-    professorName,
-    logoLeftUrl,
-    logoRightUrl,
-    date,
+    classIds,
   });
 
   const pdfBytes = await htmlToPdf(html);
@@ -93,12 +73,6 @@ export async function POST(req: NextRequest) {
       points_per_question: pointsPerQuestion,
       total_points: pointsPerQuestion * numQuestions,
       class_ids: classIds,
-      school_name: schoolName,
-      discipline,
-      professor_name: professorName,
-      logo_left_url: logoLeftUrl,
-      logo_right_url: logoRightUrl,
-      date,
     })
     .eq("id", answerKeyId)
     .select();
