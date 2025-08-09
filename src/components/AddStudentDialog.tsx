@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabaseClient"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,7 @@ type Props = {
 }
 
 export default function AddStudentDialog({ classId }: Props) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState("")
@@ -73,7 +75,7 @@ export default function AddStudentDialog({ classId }: Props) {
     if (dbErr) setError(dbErr.message)
     else {
       setOpen(false)
-      location.reload()        // mostra o novo aluno
+      router.refresh()        // mostra o novo aluno
     }
     setSaving(false)
   }

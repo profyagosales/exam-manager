@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabaseClient"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,7 @@ import { Edit } from "lucide-react"
 type Props = { cls: { id: string; name: string; year: number } }
 
 export default function EditClassDialog({ cls }: Props) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({ name: cls.name, year: cls.year })
@@ -27,7 +29,7 @@ export default function EditClassDialog({ cls }: Props) {
 
     if (!error) {
       setOpen(false)
-      location.reload()
+      router.refresh()
     }
     setSaving(false)
   }

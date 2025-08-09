@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabaseClient"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
@@ -17,6 +18,7 @@ type Student = {
 }
 
 export default function EditStudentDialog({ student }: { student: Student }) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState<Student>(student)
@@ -39,7 +41,7 @@ export default function EditStudentDialog({ student }: { student: Student }) {
 
     if (!error) {
       setOpen(false)
-      location.reload()
+      router.refresh()
     } else {
       alert("Erro ao salvar: " + error.message)
     }

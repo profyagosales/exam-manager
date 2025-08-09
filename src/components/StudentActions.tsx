@@ -1,8 +1,9 @@
 "use client"
 
-import { Edit, Trash } from "lucide-react"
+import { Trash } from "lucide-react"
 import { supabase } from "@/lib/supabaseClient"
 import EditStudentDialog from "@/components/EditStudentDialog"
+import { useRouter } from "next/navigation"
 
 type Props = {
   id: string
@@ -13,6 +14,7 @@ type Props = {
 }
 
 export default function StudentActions(student: Props) {
+  const router = useRouter()
   return (
     <div className="flex gap-2">
       {/* botão editar */}
@@ -23,7 +25,7 @@ export default function StudentActions(student: Props) {
         onClick={async () => {
           if (!confirm(`Excluir ${student.name}?`)) return
           await supabase.from("students").delete().eq("id", student.id)
-          location.reload()
+          router.refresh()
         }}
         title="Excluir"
         className="text-red-600 hover:text-red-800"

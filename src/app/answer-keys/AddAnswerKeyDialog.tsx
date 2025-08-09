@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { buildHtml } from "@/lib/buildHtml";
 
 
 export default function AddAnswerKeyDialog() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [classes, setClasses] = useState<{ id: string; name: string }[]>([]);
 
@@ -83,7 +85,7 @@ export default function AddAnswerKeyDialog() {
     }
 
     setOpen(false);
-    window.location.reload();
+    router.refresh();
   }
 
   /* ────────────────────────── JSX ──────────────────────────────── */
