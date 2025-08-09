@@ -45,8 +45,6 @@ export default async function AnswerKeysPage() {
               <div>
                 <p className="font-medium">{key.title}</p>
 
-                <p className="font-medium mb-1">{key.title}</p>
-
                 {key.sheet_url && (
                   <a
                     href={key.sheet_url}
