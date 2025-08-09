@@ -8,12 +8,14 @@ export function buildHtml({
   headerInstructions,
   numQuestions,
   questionsPerRow,
+  pointsPerQuestion = 1,
   classIds = [],
 }: {
   headerTitle: string;
   headerInstructions: string;
   numQuestions: number;
   questionsPerRow: number;
+  pointsPerQuestion?: number;
   classIds?: string[];
 }) {
   // Build Turma rows
@@ -85,6 +87,7 @@ export function buildHtml({
   <div class="box"><h1>${headerTitle}</h1></div>
   <div class="box">Nome do Aluno: _______________________________________________</div>
   <div class="box">${headerInstructions.replace(/\n/g, "<br/>")}</div>
+  <div class="box"><strong>Pontuação por questão:</strong> ${pointsPerQuestion}</div>
 
   <div class="box">
     <strong>Turmas:</strong>
