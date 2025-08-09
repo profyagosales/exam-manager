@@ -66,3 +66,12 @@
 
 5. **Documentação Atualizada**  
    - Este README deve ser atualizado com este resumo de próximos passos, instruções de configuração e guia de uso das novas funcionalidades.
+
+## 6. Roadmap Visual
+
+Uma página animada de "Next Steps" foi adicionada para apresentar os próximos objetivos do projeto de maneira clara e elegante.
+
+1. Execute `npm run dev`.
+2. Acesse [http://localhost:3000/next-steps](http://localhost:3000/next-steps) para visualizar o roteiro.
+
+Essa página utiliza [Framer Motion](https://www.framer.com/motion/) para efeitos de transição suaves.
